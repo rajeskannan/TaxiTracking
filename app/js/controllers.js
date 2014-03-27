@@ -2,9 +2,15 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['ui.bootstrap']);
+/*angular.module('myApp.controllers', []).
+  controller('MyCtrl1', [function() {
 
-function CarouselSliderCtrl($scope){
+  }])
+  .controller('MyCtrl2', [function() {
+
+  }]);*/
+
+ function CarouselSliderCtrl($scope){
 	var slides = $scope.slides = [];
 
 	slides.push({
