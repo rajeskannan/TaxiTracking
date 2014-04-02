@@ -9,9 +9,9 @@ var taxiTracker = angular.module('myApp', [
 ]);
 
 taxiTracker.config(['$routeProvider', function($routeProvider) {
-	$routeProvider.when('/about', {templateUrl: 'about.html', controller: 'aboutCtrl', activetab: 'about'});
-	$routeProvider.when('/contact', {templateUrl: 'contact.html', controller: 'contactCtrl', activetab: 'contact'});
-	$routeProvider.when('/home',{templateUrl: 'home.html', controller: 'homeCtrl', activetab: 'home'});
+	$routeProvider.when('/about', {templateUrl: 'about', controller: 'aboutCtrl', activetab: 'about'});
+	$routeProvider.when('/contact', {templateUrl: 'contact', controller: 'contactCtrl', activetab: 'contact'});
+	$routeProvider.when('/home',{templateUrl: 'home', controller: 'homeCtrl', activetab: 'home'});
 	$routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
@@ -38,11 +38,11 @@ taxiTracker.controller('CarouselSliderCtrl', function($scope){
 	var slides = $scope.slides = [];
 
 	slides.push({
-		image: '/public/img/slide_1.jpg',
+		image: '/img/slide_1.jpg',
 		text: "Call us (800) 1234-5678 Within 24 Hours"
 	});
 	slides.push({
-		image: '/public/img/slide_2.jpg',
+		image: '/img/slide_2.jpg',
 		text: "We’ll take you Wherever you need"
 	});
 });

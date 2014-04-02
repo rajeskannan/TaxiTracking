@@ -1,0 +1,13 @@
+{
+  "name": "Taxi_Tracking",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "start": "node web-server.js"
+  },
+  "dependencies": {
+    "express": "3.5.0",
+	"passport": ">= 0.0.0",
+    "passport-local": ">= 0.0.0"
+  }
+}
