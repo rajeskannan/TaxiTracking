@@ -34,6 +34,30 @@ taxiTracker.controller('contactCtrl', function($scope, $route) {
 	$scope.activeTab = $route.current.activetab;
 });
 
+taxiTracker.controller('loginModalCtrl', function($scope, $route, $modal) {
+	$scope.user = {};
+	$scope.wasSubmitted = false;
+
+	$scope.open = function() {
+		var modalInstance = $modal.open({templateUrl:'loginModal.html', controller:'loginModalSercontroller'});
+	}
+
+	$scope.submit = function() {
+		$scope.wasSubmitted = true;
+	};
+
+	$scope.error = function(name) {
+		var s = $scope.form[name];
+		return s.$invalid && s.$dirty ? "error" : "";
+	};
+});
+
+taxiTracker.controller('loginModalSercontroller', function($scope, $modalInstance){
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+});
+
 taxiTracker.controller('CarouselSliderCtrl', function($scope){
 	var slides = $scope.slides = [];
 

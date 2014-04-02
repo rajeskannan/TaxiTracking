@@ -4,8 +4,8 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
 		<title>Taxi Tracker</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" href="/public/css/bootstrap.min.css"/>
-		<link rel="stylesheet" href="/public/css/app.css"/>  
+		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="/css/app.css"/>  
 	</head>
 	<body>
 		<div class="navbar-wrapper">
@@ -24,7 +24,34 @@
 							<li ng-class="{active: activetab == '/home'}"><a href="#home">Home</a></li>
 							<li ng-class="{active: activetab == '/about'}"><a href="#about">About</a></li>
 							<li ng-class="{active: activetab == '/contact'}"><a href="#contact">Contact</a></li>
-							<li ng-class="{active: activetab == '/login'}"><a href="#login">Login</a></li>
+							<li ng-controller="loginModalCtrl">
+								<a href="javascript:" ng-click="open()">Login</a>
+								<script type="text/ng-template" id="loginModal.html">
+									<div class="modal-header">
+										<h1 class="text-center">Login</h1>
+									</div>
+									<div class="modal-footer" style="margin-top:0px">
+										<form class="form col-md-12 center-block" name="form" ng-submit="submit()" method="post" novalidate>
+											<div class="form-group" ng-class="error('username')">
+												<input type="text" id="username" ng-model="user.username" name="username" class="form-control input-lg" placeholder="Email" required>
+												<span class="help-block" ng-show="form.username.$invalid && form.username.$dirty">
+													Username is required.
+												</span>
+											</div>
+											<div class="form-group" ng-class="error('password')">
+												<input type="password" id="password" ng-model="user.password" name="password" class="form-control input-lg" placeholder="Password" required>
+												<span class="help-block" ng-show="form.password.$invalid && form.password.$dirty">
+													Password is required.
+												</span>
+											</div>
+											<div class="form-group">
+												<button ng-disabled="form.$invalid" class="btn btn-primary btn-lg">Sign In</button>
+												<button class="btn btn-primary btn-lg" ng-click="cancel()">Cancel</button>
+											</div>	
+										</form>											
+									</div>
+								</script>
+ 							</li>
 						</ul>
 					</div>
 				</div>
@@ -34,39 +61,10 @@
 		<br>
 		<div ng-view></div>
 
-		<script type="text/ng-template" id="login.html">
-			<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h1 class="text-center">Login</h1>
-						</div>
-						<div class="modal-body">
-							<form class="form col-md-12 center-block">
-								<div class="form-group">
-									<input type="text" class="form-control input-lg" placeholder="Email">
-								</div>
-								<div class="form-group">
-									<input type="password" class="form-control input-lg" placeholder="Password">
-								</div>
-							</form>
-						</div>
-						<div class="model-footer">
-							<div class="row" style="margin-bottom:5%">
-								<div class="col-md-6 col-md-offset-3 text-center">
-									<button class="btn btn-primary btn-lg">Sign In</button>
-									<button class="btn btn-primary btn-lg">Register</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</script>
-		<script src="/public/lib/angular/angular.js"></script>
-		<script src="/public/lib/angular/angular-route.js"></script>
-		<script src="/public/lib/angular-ui/ui-bootstrap-custom-tpls-0.10.0.js"></script>
-		<script src="/public/js/app.js"></script>
-		<script src="/public/js/filters.js"></script>
+		<script src="/lib/angular/angular.js"></script>
+		<script src="/lib/angular/angular-route.js"></script>
+		<script src="/lib/angular-ui/ui-bootstrap-custom-tpls-0.10.0.js"></script>
+		<script src="/js/app.js"></script>
+		<script src="/js/filters.js"></script>
 	</body>
 </html>
