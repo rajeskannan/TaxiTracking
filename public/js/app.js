@@ -5,9 +5,6 @@
 var taxiTracker = angular.module('myApp', [
 	'ngRoute',
 	'myApp.filters',
-	'myApp.services',
-	'myApp.directives',
-	'myApp.controllers',
 	'ui.bootstrap'
 ]);
 
@@ -41,11 +38,11 @@ taxiTracker.controller('CarouselSliderCtrl', function($scope){
 	var slides = $scope.slides = [];
 
 	slides.push({
-		image: 'img/slide_1.jpg',
+		image: '/public/img/slide_1.jpg',
 		text: "Call us (800) 1234-5678 Within 24 Hours"
 	});
 	slides.push({
-		image: 'img/slide_2.jpg',
+		image: '/public/img/slide_2.jpg',
 		text: "We’ll take you Wherever you need"
 	});
 });
