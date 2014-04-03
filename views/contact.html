@@ -1,44 +1,72 @@
-<div class="row" style="margin-top:30px;">
-	<div class="col-sm-9 col-sm-offset-2">
-		<div class="row form-group">
-			<div class="col-md-12">
-				<h1>Contact Us</h1>
-			</div>
-			<div class="col-xs-4">
-				<input type="text" class="form-control" id="firstName" name="name" placeholder="Your Name">
-			</div>
-			<div class="col-xs-6">
-				<input type="text" class="form-control" id="organization" name="organization" placeholder="Company or Organization">
-			</div>
+<div class="row sidebar">
+	<div class="col-sm-8 sidebar" ng-controller="ContactCtrl">
+		<div class="col-md-12">
+			<h1>Contact Us</h1>
 		</div>
-		<div class="row form-group">
-			<div class="col-xs-5">
-				<input type="text" class="form-control" name="email" placeholder="Email">
+		<form name="form" class="form col-md-12 center-block" method="post" action="/enqury" novalidate>
+			<div class="form-group" ng-class="error('name')">
+				<input type="text" id="name" ng-model="user.name" name="name" class="form-control input-lg" placeholder="Your Name" required>
+				<span class="help-block" ng-show="form.name.$invalid && form.name.$dirty">
+					Name is required.
+				</span>
 			</div>
-			<div class="col-xs-5">
-				<input type="text" class="form-control" name="phone" placeholder="Phone">
+			<div class="form-group" ng-class="error('company')">
+				<input type="text" id="company" ng-model="user.company" name="company" class="form-control input-lg" placeholder="Company or Organization" required>
+				<span class="help-block" ng-show="form.company.$invalid && form.company.$dirty">
+					Copmany name is required.
+				</span>
 			</div>
-		</div>
-		<div class="row form-group">
-			<div class="col-xs-10">
-				<textarea class="form-control" placeholder="Comments"></textarea>
+			<div class="form-group" ng-class="error('email')">
+				<input type="email" id="email" ng-model="user.email" name="email" class="form-control input-lg" placeholder="Email" required>
+				<span class="help-block" ng-show="form.email.$invalid && form.email.$dirty">
+					Email is required.
+				</span>
 			</div>
-		</div>
-		<div class="row form-group">
-			<div class="col-xs-10">
-				<button class="btn btn-primary btn-lg pull-right">Contact Us</button>
+			<div class="form-group" ng-class="error('phone')">
+				<input type="text" id="phone" ng-model="user.phone" name="phone" class="form-control input-lg" placeholder="Phone" required>
+				<span class="help-block" ng-show="form.phone.$invalid && form.phone.$dirty">
+					Phone is required.
+				</span>
 			</div>
-		</div>
+			<div class="form-group">
+				<textarea id="comment" ng-model="user.comment" style="resize: none;" name="comment" class="form-control input-lg" placeholder="Comments"></textarea>
+			</div>
+			<div class="form-group">
+				<button ng-disabled="form.$invalid" class="btn btn-primary btn-lg btn-lg pull-right" type="submit">Contact Us</button>
+				<ul class="list-inline center-block">
+					<li><a href="javascript:"><img src="/img/soc_fb.png"></a></li>
+					<li><a href="javascript:"><img src="/img/soc_tw.png"></a></li>
+					<li><a href="javascript:"><img src="/img/soc_gplus.png"></a></li>
+					<li><a href="javascript:"><img src="/img/soc_pin.png"></a></li>
+				</ul>
+			</div>
+		</form>
 	</div>
-</div>
+	<div class="col-sm-4 sidebar">
+		<div class="sidebox">
+			<h3 class="sidebox-title">Contact Information</h3>
+			<p></p>
+			<address>
+				<strong>Your Company, Inc.</strong><br>
+				Address<br>
+				City, State, Zip<br>
+				<abbr title="Phone">P:</abbr> (123) 456-7890
+			</address> 
+			<address>
+				<strong>Email</strong><br>
+				<a href="mailto:#">first.last@gmail.com</a>
+			</address>  
+			<p></p>     
 
-<div class="row">
-	<div class="col-sm-8 col-sm-offset-2 text-center">
-		<ul class="list-inline center-block">
-			<li><a href="javascript:"><img src="/img/soc_fb.png"></a></li>
-			<li><a href="javascript:"><img src="/img/soc_tw.png"></a></li>
-			<li><a href="javascript:"><img src="/img/soc_gplus.png"></a></li>
-			<li><a href="javascript:"><img src="/img/soc_pin.png"></a></li>
-		</ul>
+			<h4 class="sidebox-title">Sidebar Categories</h4>
+			<ul>
+				<li><a href="#">Quisque diam lorem sectetuer adipiscing</a></li>
+				<li><a href="#">Interdum vitae, adipiscing dapibus ac</a></li>
+				<li><a href="#">Scelerisque ipsum auctor vitae, pede</a></li>
+				<li><a href="#">Donec eget iaculis lacinia non erat</a></li>
+				<li><a href="#">Lacinia dictum elementum velit fermentum</a></li>
+				<li><a href="#">Donec in velit vel ipsum auctor pulvinar</a></li>
+			</ul>
+		</div>
 	</div>
 </div>

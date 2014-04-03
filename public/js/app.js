@@ -34,7 +34,7 @@ taxiTracker.controller('contactCtrl', function($scope, $route) {
 	$scope.activeTab = $route.current.activetab;
 });
 
-taxiTracker.controller('loginModalCtrl', function($scope, $route, $modal) {
+taxiTracker.controller('loginModalCtrl', function($scope, $modal) {
 	$scope.user = {};
 	$scope.wasSubmitted = false;
 
@@ -43,8 +43,18 @@ taxiTracker.controller('loginModalCtrl', function($scope, $route, $modal) {
 	}
 
 	$scope.submit = function() {
-		$scope.wasSubmitted = true;
+		//$scope.wasSubmitted = true;
+		console.log("form submission hepaing lol");
 	};
+
+	$scope.error = function(name) {
+		var s = $scope.form[name];
+		return s.$invalid && s.$dirty ? "error" : "";
+	};
+});
+
+taxiTracker.controller('ContactCtrl', function($scope) {
+	$scope.user = {};
 
 	$scope.error = function(name) {
 		var s = $scope.form[name];
