@@ -31,6 +31,9 @@
 										<h1 class="text-center">Login</h1>
 									</div>
 									<div class="modal-footer" style="margin-top:0px">
+									<span class="errorSpan"><% if (message) { %>
+		<p><%= message %></p>
+		<% } %></span>
 										<form class="form col-md-12 center-block" name="form" action="/login" method="post" novalidate>
 											<div class="form-group" ng-class="error('username')">
 												<input type="text" id="username" ng-model="user.username" name="username" class="form-control input-lg" placeholder="Email" required>
