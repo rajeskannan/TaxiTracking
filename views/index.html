@@ -31,9 +31,11 @@
 										<h1 class="text-center">Login</h1>
 									</div>
 									<div class="modal-footer" style="margin-top:0px">
-									<span class="errorSpan"><% if (message) { %>
-		<p><%= message %></p>
-		<% } %></span>
+										<span class="errorSpan">
+											<% if (message) { %>
+												<p><%= message %></p>
+											<% } %>
+										</span>
 										<form class="form col-md-12 center-block" name="form" action="/login" method="post" novalidate>
 											<div class="form-group" ng-class="error('username')">
 												<input type="text" id="username" ng-model="user.username" name="username" class="form-control input-lg" placeholder="Email" required>
@@ -50,8 +52,8 @@
 											<div class="form-group">
 												<button ng-disabled="form.$invalid" class="btn btn-primary btn-lg" type="submit"> Sign In </button>
 												<button class="btn btn-primary btn-lg" ng-click="cancel()" type="button">Cancel</button>
-											</div>	
-										</form>											
+											</div>
+										</form>
 									</div>
 								</script>
  							</li>
@@ -59,7 +61,7 @@
 					</div>
 				</div>
 			</div>
-		</div><!-- /navbar wrapper -->
+		</div>
 		<br>
 		<br>
 		<div class="container" ng-view></div>

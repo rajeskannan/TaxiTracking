@@ -30,14 +30,14 @@ var connection = require('./config/db_util');
 // all environments
 app.set('port', process.env.PORT || 8000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');						        //ejs engine for view 
+app.set('view engine', 'ejs');								//ejs engine for view 
 app.use(express.favicon("public/img/favicon.ico"));
-app.use(express.logger('dev'));							    // log every request to the console
-app.use(express.bodyParser());        					    // pull information from html in POST
+app.use(express.logger('dev'));								// log every request to the console
+app.use(express.bodyParser());								// pull information from html in POST
 app.use(express.methodOverride());
 
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));    // set the static files location /public/img will be /img for users
+app.use(express.static(path.join(__dirname, 'public')));	// set the static files location /public/img will be /img for users
 
 //render pages
 var rendering=require('./render_pages/dynamic_pages');
@@ -54,30 +54,28 @@ app.get('/userHome',ensureAuthenticated,rendering.renderUserHome);
 app.get('/invalid',rendering.renderInvalid);
 
 //login code
-app.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
-  function(req, res) {
-    res.redirect('/userHome');
-});
+app.post('/login', passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
+	function(req, res) {
+		res.redirect('/userHome');
+	}
+);
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-      
-      // Find the user by username.  If there is no user with the given
-      // username, or the password is not correct, set the user to `false` to
-      // indicate failure and set a flash message.  Otherwise, return the
-      // authenticated `user`.
-      user_controller.findByUsername(username, function(err, user) {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-        if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
-        return done(null, user);
-      })
-    });
-  }
-));
+passport.use(new LocalStrategy(function(username, password, done) {
+	// asynchronous verification, for effect...
+	process.nextTick(function () {
+
+	// Find the user by username.  If there is no user with the given
+	// username, or the password is not correct, set the user to `false` to
+	// indicate failure and set a flash message.  Otherwise, return the
+	// authenticated `user`.
+		user_controller.findByUsername(username, function(err, user) {
+			if (err) { return done(err); }
+			if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
+			if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+			return done(null, user);
+		});
+	});
+}));
 
 
 
@@ -86,9 +84,9 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  user_controller.findById(id, function (err, user) {
-    done(err, user);
-  });
+	user_controller.findById(id, function (err, user) {
+		done(err, user);
+	});
 });
 
 function ensureAuthenticated(req, res, next) {
@@ -103,8 +101,8 @@ function disableLoginPage(req, res, next){
 
 
 app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
+	req.logout();
+	res.redirect('/');
 });
 
 

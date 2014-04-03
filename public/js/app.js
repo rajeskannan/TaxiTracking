@@ -29,7 +29,7 @@ taxiTracker.controller('homeCtrl', function($scope, $route) {
 taxiTracker.controller('aboutCtrl', function($scope, $route) {
 	$scope.activeTab = $route.current.activetab;
 });
-  
+
 taxiTracker.controller('contactCtrl', function($scope, $route) {
 	$scope.activeTab = $route.current.activetab;
 });
