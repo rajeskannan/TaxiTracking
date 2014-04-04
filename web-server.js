@@ -53,7 +53,7 @@ app.get('/',rendering.renderIndex);
 app.get('/home',rendering.renderHome);
 app.get('/contact',rendering.renderContact);
 app.get('/about',rendering.renderAbout);
-app.get('/userHome',ensureAuthenticated,rendering.renderUserHome);
+app.get('/userHome',user_controller.auth,rendering.renderUserHome);
 
 //login code
 app.post('/login', 
@@ -93,21 +93,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/');
-}
-
-function disableLoginPage(req, res, next){
-	if (req.isAuthenticated()) {res.redirect('/index'); }
-	return next();
-}
-
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+app.get('/logout', rendering.userLogout);
 
 
 http.createServer(app).listen(app.get('port'), function(){

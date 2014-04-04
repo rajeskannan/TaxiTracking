@@ -31,3 +31,11 @@ exports.findByUsername=function findByUsername(username, fn) {
 	}
   });
 };
+
+/*
+ * check authentication
+ */
+exports.auth = function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/');
+};

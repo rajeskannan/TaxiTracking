@@ -44,3 +44,10 @@ exports.renderLoginModal = function(req, res){
 exports.renderUserHome = function(req, res){
 	res.render('userHome.html');
 };
+/*
+ * logout code
+ */
+exports.userLogout = function(req, res){
+	req.logout();
+	res.redirect('/');
+};
