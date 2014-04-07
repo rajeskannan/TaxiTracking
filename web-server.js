@@ -31,13 +31,41 @@ var connection = require('./config/db_util');
 app.set('port', process.env.PORT || 8000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');						        //ejs engine for view 
-app.use(express.favicon("public/img/favicon.ico"));
+app.use(express.favicon("public/img/taxifavicon.ico"));
 app.use(express.logger('dev'));							    // log every request to the console
 app.use(express.bodyParser());        					    // pull information from html in POST
 app.use(express.methodOverride());
 
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));    // set the static files location /public/img will be /img for users
+
+
+//....................................................//
+app.use(function(req, res, next){
+  console.log('normal middleware');
+  res.status(404);
+  
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('404', { url: req.url });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
+});
+app.use(function(err, req, res, next){
+  console.log('ERROR middleware');
+  res.status(err.status || 500);
+  res.render('custom_error.html', { error: err });
+});
+//....................................................//
 
 //render pages
 var rendering=require('./render_pages/dynamic_pages');
@@ -54,7 +82,7 @@ app.get('/home',rendering.renderHome);
 app.get('/contact',rendering.renderContact);
 app.get('/about',rendering.renderAbout);
 app.get('/userHome',user_controller.auth,rendering.renderUserHome);
-
+app.post('/enqury',user_controller.enqurySave);
 //login code
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),

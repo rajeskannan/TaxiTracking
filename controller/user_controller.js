@@ -3,6 +3,9 @@ var connection = require('../config/db_util');
 //import user module
 var User = require('../domain/User');
 
+//password module
+var passwordModule = require('../controller/user_password_auth');
+
 //find user by id and userName
 exports.findById=function findById(id, fn) {
   var query="select * from user where user_id=?";
@@ -38,4 +41,101 @@ exports.findByUsername=function findByUsername(username, fn) {
 exports.auth = function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/');
+};
+
+/*
+ * save new user information
+ */
+exports.saveNewUser = function(req, res){
+	var first_name = 'Ram';
+	var last_name = 'Charan';
+	var username = 'ramcharan52';
+	var email = 'ramcharan@gmail.com';
+	var address = 'unknown';
+	var phone_no = '8989898989';
+	var password = passwordModule.hash('charan');
+	var date = new Date();
+	
+	connection.query('INSERT INTO user (first_name, last_name,username,email,password,created_on,updated_on,phone_number,address,company_id) VALUES (?,?,?,?,?,?,?,?,?,?);' , [first_name,last_name,username,email,password,date,date,phone_no,address,1], function(err, docs) {
+		if(err) {console.log('err>> '+err);res.send('401');}
+		findUserId(username, function(result_id) { 
+			console.log('result_id>> '+result_id);
+			connection.query('INSERT INTO user_role (user_id,role_id) VALUES (?,?)',[result_id,2], function(err, docs) {
+				res.redirect('/userHome');
+			});
+		});
+			
+	});
+};
+//find id for a specific user
+function findUserId(username,calfn){
+  var query="select user_id from user where username=?";
+  var result;
+  connection.query(query ,[username], function(err, docs) {
+	if(docs.length>0){
+		result = docs[0].user_id;
+		return calfn(result);
+	}
+	else{
+		return calfn(null);
+	}
+  });
+};
+
+/*
+ * Redirect to a Edit User Page
+ */
+exports.editUser = function(req, res){
+	var user_id = req.param("userId");
+	var query = "select * from user where user_id=?"
+	
+	if(user_id){
+		connection.query(query ,[user_id], function(err, docs) {
+			if(err){console.log('err>> '+err);res.send('401');}
+			res.render("editUserPage",{user:docs});
+		});
+	
+	}
+	else{
+		console.log('userId is misisng!');
+		res.send('401');
+	}
+};
+/*
+ * update user information
+ */
+ exports.updateUser = function(req, res){
+	var user_id = req.body.user_id;   //hidden id of the user in the form
+	var first_name = req.body.first_name;
+	var last_name = req.body.last_name;
+	var email = req.body.email;
+	var address = req.body.address;
+	var phone_no = req.body.phone_no;
+	var date = new Date();
+
+	connection.query('UPDATE user set first_name=? , last_name=? ,email=?,address=?,phone_no=?,updated_on=? where id=?;' ,[first_name,last_name,email,address,phone_no,date,user_id], function(err, docs) {
+		res.redirect('adminHome');
+	});
+
+};
+ 
+ 
+ 
+ 
+ 
+ 
+//save enquiry 
+exports.enqurySave =function(req,res){
+	var name = req.body.name;
+	var company_name = req.body.company;
+	var email = req.body.email;
+	var phone_no = req.body.phone;
+	var comment = req.body.comment;
+	var date = new Date();
+	
+	connection.query('INSERT INTO enquiry (name,company_name,email,phone_no,comments,created_on) VALUES (?,?,?,?,?,?);' , [name,company_name,email,phone_no,comment,date], function(err, docs) {
+		if(err) {console.log('err>> '+err);res.send(500);}
+		res.redirect('/contact');
+	});
+	
 };
