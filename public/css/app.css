@@ -149,7 +149,7 @@ body {
 .tab-content > .active, .pill-content > .active {
 	display: block;
 	border: 1px solid #ddd;
-	border-left: 0px;
+	border-radius: 10px;
 }
 
 .tabs-left > .nav-tabs > li, .tabs-right > .nav-tabs > li {
@@ -164,6 +164,7 @@ body {
 
 .tabs-left > .nav-tabs {
 	float: left;
+	margin-top: 5px;
 	margin-right: 19px;
 	border-right: 1px solid #ddd;
 }
