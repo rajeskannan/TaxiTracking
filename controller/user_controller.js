@@ -158,7 +158,25 @@ exports.deleteUser = function(req, res){
 
 };
  
- 
+/*
+ * view a user information
+ */
+exports.viewUser = function(req, res){
+	var user_id = req.param("userId");
+	var query = "select * from user where user_id=?"
+	
+	if(user_id){
+		connection.query(query ,[user_id], function(err, docs) {
+			if(err){console.log('err>> '+err);res.send('401');}
+			res.render("viewUserPage",{user:docs});
+		});
+	
+	}
+	else{
+		console.log('userId is misisng!');
+		res.send('401');
+	}
+};
  
  
  
@@ -172,8 +190,23 @@ exports.enqurySave =function(req,res){
 	var date = new Date();
 	
 	connection.query('INSERT INTO enquiry (name,company_name,email,phone_no,comments,created_on) VALUES (?,?,?,?,?,?);' , [name,company_name,email,phone_no,comment,date], function(err, docs) {
-		if(err) {console.log('err>> '+err);res.send(500);}
-		res.redirect('#/contact');
+		if(err) {console.log('err>> '+err);req.session.error="Some problem occoured!";res.redirect('#/contact');}
+		else{res.redirect('#/contact');}
 	});
 	
 };
+
+/*
+ * get user info
+ */
+ exports.getUserInfo = function(userId,calfn){
+ 	console.log('inside '+userId);
+ 	var user;
+ 	connection.query('select * from user where user_id=?',[userId], function(err, docs) {
+			if(err){console.log('err>> '+err);calfn(null);}
+			else{
+				user=[docs[0].first_name,docs[0].last_name,docs[0].username,docs[0].email,docs[0].phone_number,docs[0].address,docs[0].company_id];
+				calfn(user);
+			}
+		});
+ };

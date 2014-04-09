@@ -1,4 +1,7 @@
 
+//import user_controller
+var user_controller = require('../controller/user_controller');
+
 /*
  * render index.html
  */
@@ -23,7 +26,9 @@ exports.renderHome = function(req, res){
  * render Contact.html 
  */
 exports.renderContact = function(req, res){
-	res.render('contact.html');
+	var eerMsg = req.session.error;
+	req.session.error = null;
+	res.render('contact.html',{errMsg:eerMsg});
 };
 /*
  * render about.html
@@ -42,7 +47,9 @@ exports.renderLoginModal = function(req, res){
  * render userHome page.html
  */
 exports.renderUserHome = function(req, res){
-	res.render('userHome.html');
+	user_controller.getUserInfo(req.user.id,function(userInfo){
+		res.render('userHome.html',{userInfo:userInfo});
+	});
 };
 /*
  * logout code

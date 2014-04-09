@@ -3,6 +3,11 @@
 		<div class="col-md-12">
 			<h1>Contact Us</h1>
 		</div>
+		<span>
+		<% if (errMsg){%>
+			<p><%=errMsg%></p>
+		<%}%>
+		</span>
 		<form name="form" class="form col-md-12 center-block" method="post" action="/enqury" novalidate>
 			<div class="form-group" ng-class="error('name')">
 				<input type="text" id="name" ng-model="user.name" name="name" class="form-control input-lg" placeholder="Your Name" required>
