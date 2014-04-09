@@ -8,8 +8,15 @@ var taxiTracker = angular.module('myApp', [
 	'ui.bootstrap'
 ]);
 
+var userHome = angular.module('userApp', [
+	'ngRoute',
+	'myApp.filters',
+	'ui.bootstrap'
+]);
+
 taxiTracker.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/about', {templateUrl: 'about', controller: 'aboutCtrl', activetab: 'about'});
+	$routeProvider.when('/userHome', {templateUrl: 'userHome'});
 	$routeProvider.when('/contact', {templateUrl: 'contact', controller: 'contactCtrl', activetab: 'contact'});
 	$routeProvider.when('/home',{templateUrl: 'home', controller: 'homeCtrl', activetab: 'home'});
 	$routeProvider.otherwise({redirectTo: '/home'});
