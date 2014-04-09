@@ -136,7 +136,9 @@ body {
 
 .tab-content{
 	padding-left: 94px;
+	text-align: justify;
 }
+
 /* custom inclusion of right, left and below tabs */
 .tabs-right > .nav-tabs, .tabs-left > .nav-tabs {
 	border-bottom: 0;
@@ -148,7 +150,7 @@ body {
 
 .tab-content > .active, .pill-content > .active {
 	display: block;
-	border: 1px solid #ddd;
+	border: 1px solid #000;
 	border-radius: 10px;
 }
 
@@ -164,9 +166,9 @@ body {
 
 .tabs-left > .nav-tabs {
 	float: left;
-	margin-top: 5px;
+	margin-top: 15px;
 	margin-right: 19px;
-	border-right: 1px solid #ddd;
+	border-left: 1px solid #fff;
 }
 
 .tabs-left > .nav-tabs > li > a {
@@ -177,18 +179,18 @@ body {
 }
 
 .tabs-left > .nav-tabs > li > a:hover, .tabs-left > .nav-tabs > li > a:focus {
-	border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+	border-color: #eeeeee #000000 #eeeeee #eeeeee;
 }
 
 .tabs-left > .nav-tabs .active > a, .tabs-left > .nav-tabs .active > a:hover, .tabs-left > .nav-tabs .active > a:focus {
-	border-color: #ddd transparent #ddd #ddd;
+	border-color: #000 transparent #000 #000;
 	*border-right-color: #ffffff;
 }
 
 .tabs-right > .nav-tabs {
 	float: right;
 	margin-left: 19px;
-	border-left: 1px solid #ddd;
+	border-left: 1px solid #000;
 }
 
 .tabs-right > .nav-tabs > li > a {
@@ -199,10 +201,10 @@ body {
 }
 
 .tabs-right > .nav-tabs > li > a:hover, .tabs-right > .nav-tabs > li > a:focus {
-	border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+	border-color: #eeeeee #eeeeee #eeeeee #000000;
 }
 
 .tabs-right > .nav-tabs .active > a, .tabs-right > .nav-tabs .active > a:hover, .tabs-right > .nav-tabs .active > a:focus {
-	border-color: #ddd #ddd #ddd transparent;
+	border-color: #000 ##000 #000 transparent;
 	*border-left-color: #ffffff;
 }
