@@ -49,5 +49,6 @@ exports.renderUserHome = function(req, res){
  */
 exports.userLogout = function(req, res){
 	req.logout();
+	req.session.destroy();
 	res.redirect('/');
 };

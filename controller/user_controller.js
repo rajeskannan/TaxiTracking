@@ -26,7 +26,7 @@ exports.findByUsername=function findByUsername(username, fn) {
   var user;
   connection.query(query ,[username], function(err, docs) {
 	if(docs.length>0){
-		user=new User(docs[0].user_id,docs[0].fisrt_name,docs[0].last_name,docs[0].username,docs[0].email,docs[0].password,docs[0].phone_number,docs[0].address,docs[0].company_id);
+		user=new User(docs[0].user_id,docs[0].first_name,docs[0].last_name,docs[0].username,docs[0].email,docs[0].password,docs[0].phone_number,docs[0].address,docs[0].company_id);
 		return fn(null, user);
 	}
 	else{
@@ -42,6 +42,29 @@ exports.auth = function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/');
 };
+
+
+/*
+ * validation username of a newly created user
+ */
+
+exports.validateUserNameForUniqueness = function(req, res){
+
+	var username = req.param("username");
+	res.set('Content-Type', 'text/plain');
+	connection.query('select * from user where username=?' ,[username], function(err, docs) {
+		if(docs.length>0){
+			res.write("true");
+			res.end();
+		}
+		else{
+			res.write("false");
+			res.end();
+		}
+	});
+};
+
+
 
 /*
  * save new user information
@@ -67,6 +90,8 @@ exports.saveNewUser = function(req, res){
 			
 	});
 };
+
+
 //find id for a specific user
 function findUserId(username,calfn){
   var query="select user_id from user where username=?";
@@ -118,7 +143,20 @@ exports.editUser = function(req, res){
 	});
 
 };
- 
+
+
+/*
+ * delete a User (whereever user_id is reffering in some table set every where on cascade delete)
+ */
+exports.deleteUser = function(req, res){
+	var user_id = req.param("userId");   //user id of the deleted user
+	console.log('user_id>> '+user_id);
+	connection.query('delete from user where user_id=?;' ,[user_id], function(err, docs) {
+			if(err){console.log('err>> '+err);res.send('401');}
+			res.redirect('/userHome');
+	});
+
+};
  
  
  
@@ -135,7 +173,7 @@ exports.enqurySave =function(req,res){
 	
 	connection.query('INSERT INTO enquiry (name,company_name,email,phone_no,comments,created_on) VALUES (?,?,?,?,?,?);' , [name,company_name,email,phone_no,comment,date], function(err, docs) {
 		if(err) {console.log('err>> '+err);res.send(500);}
-		res.redirect('/contact');
+		res.redirect('#/contact');
 	});
 	
 };
