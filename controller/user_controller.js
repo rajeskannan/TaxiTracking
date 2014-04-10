@@ -199,14 +199,21 @@ exports.enqurySave =function(req,res){
 /*
  * get user info
  */
- exports.getUserInfo = function(userId,calfn){
- 	console.log('inside '+userId);
+function(userId,calfn){
  	var user;
  	connection.query('select * from user where user_id=?',[userId], function(err, docs) {
 			if(err){console.log('err>> '+err);calfn(null);}
 			else{
-				user=[docs[0].first_name,docs[0].last_name,docs[0].username,docs[0].email,docs[0].phone_number,docs[0].address,docs[0].company_id];
-				calfn(user);
+				calfn(docs);
 			}
 		});
  };
+
+exports.getUserDetails = function(req,res){
+	res.set('Content-Type', 'application/json');
+	getUserInfo(req.user.id,function(userInfo){
+		res.write(JSON.stringify(userInfo));
+		res.end();
+	});
+
+};

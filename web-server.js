@@ -76,6 +76,7 @@ var user_controller = require('./controller/user_controller');
 //password module
 var passwordModule = require('./controller/user_password_auth');
 
+
 //default gateway
 app.get('/',rendering.renderIndex);
 app.get('/home',rendering.renderHome);
@@ -83,6 +84,8 @@ app.get('/contact',rendering.renderContact);
 app.get('/about',rendering.renderAbout);
 app.get('/userHome',user_controller.auth,rendering.renderUserHome);
 app.post('/enqury',user_controller.enqurySave);
+app.get('/userDetails',user_controller.getUserDetails)
+
 //login code
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),

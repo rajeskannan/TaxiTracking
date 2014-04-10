@@ -47,9 +47,7 @@ exports.renderLoginModal = function(req, res){
  * render userHome page.html
  */
 exports.renderUserHome = function(req, res){
-	user_controller.getUserInfo(req.user.id,function(userInfo){
-		res.render('userHome.html',{userInfo:userInfo});
-	});
+		res.render('userHome.html');
 };
 /*
  * logout code
