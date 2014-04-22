@@ -82,9 +82,12 @@ app.get('/',rendering.renderIndex);
 app.get('/home',rendering.renderHome);
 app.get('/contact',rendering.renderContact);
 app.get('/about',rendering.renderAbout);
+//app.get('/adminHome',user_controller.auth,rendering.renderAdminHome);
 app.get('/userHome',user_controller.auth,rendering.renderUserHome);
 app.post('/enqury',user_controller.enqurySave);
-app.get('/userDetails',user_controller.getUserDetails)
+app.post('/saveUser',user_controller.saveNewUser);
+app.post('/updateUser',user_controller.updateUser);
+app.get('/userDetails',user_controller.getUserDetails);
 
 //login code
 app.post('/login', 

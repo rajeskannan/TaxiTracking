@@ -135,11 +135,12 @@ exports.editUser = function(req, res){
 	var last_name = req.body.last_name;
 	var email = req.body.email;
 	var address = req.body.address;
-	var phone_no = req.body.phone_no;
+	var phone_number = req.body.phone_number;
 	var date = new Date();
 
-	connection.query('UPDATE user set first_name=? , last_name=? ,email=?,address=?,phone_no=?,updated_on=? where id=?;' ,[first_name,last_name,email,address,phone_no,date,user_id], function(err, docs) {
-		res.redirect('adminHome');
+	connection.query('UPDATE user set first_name=? , last_name=? ,email=?,address=?,phone_number=?,updated_on=? where user_id=?;' ,[first_name,last_name,email,address,phone_number,date,user_id], function(err, docs) {
+		console.log(err);
+		res.redirect('/userHome');
 	});
 
 };
@@ -199,9 +200,9 @@ exports.enqurySave =function(req,res){
 /*
  * get user info
  */
-function(userId,calfn){
- 	var user;
- 	connection.query('select * from user where user_id=?',[userId], function(err, docs) {
+function getUserInfo(userId,calfn){
+	var user;
+	connection.query('select * from user where user_id=?',[userId], function(err, docs) {
 			if(err){console.log('err>> '+err);calfn(null);}
 			else{
 				calfn(docs);

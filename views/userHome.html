@@ -5,7 +5,8 @@
 		<title>Taxi Tracker</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
-		<link rel="stylesheet" href="/css/app.css"/>  
+		<link rel="stylesheet" href="/css/app.css"/>
+		<link rel="stylesheet" href="/css/xeditable.css"/>
 	</head>
 	<body>
 		<div class="navbar-wrapper">
@@ -31,26 +32,57 @@
 		<br>
 		<div class="container" style="margin-top:25px;">
 			<div class="row sidebar">
-				<div class="col-md-10 col-md-offset-1">	
+				<div class="col-md-10 col-md-offset-1">
 					<tabset vertical="true" class="tabs-left">
 						<tab heading="My Profile">
 							<div class="row">
-								<div class="col-md-10">
-									<p>
-										Name:<%=userInfo[0]%> &nbsp;<%=userInfo[1]%> </br>
-										Email:<%=userInfo[3]%></br>
-										Username:<%=userInfo[2]%></br>
-										Phone No:<%=userInfo[4]%></br>
-										Address:<%=userInfo[5]%>
-									</p>
+								<div class="col-md-8 col-md-offset-2" ng-controller="userDetailCtrl">
+									<form editable-form name="editableForm" class="form-horizontal" onaftersave="saveUser()">
+										<div class="form-group">
+											<span class="title">First name</span>
+											<span editable-text="userD.first_name" e-name="first_name" onbeforesave="checkName($data)" e-required>{{ userD.first_name || 'empty' }}</span>
+										</div>
+
+										<div class="form-group">
+											<span class="title">Last name</span>
+											<span editable-text="userD.last_name" e-name="last_name" onbeforesave="checkName($data)" e-required>{{ userD.last_name || 'empty' }}</span>
+										</div>
+
+										<div class="form-group">
+											<span class="title">Email</span>
+											<span editable-text="userD.email" e-name="email" onbeforesave="checkName($data)" e-required>{{ userD.email || 'empty' }}</span>
+										</div>
+
+										<div class="form-group">
+											<span class="title">Phone</span>
+											<span editable-text="userD.phone_number" e-name="phone_number" onbeforesave="checkName($data)" e-required>{{ userD.phone_number || 'empty' }}</span>
+										</div>
+
+										<div>
+											<!-- button to show form -->
+											<button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+												Edit
+											</button>
+											<!-- buttons to submit / cancel form -->
+											<span ng-show="editableForm.$visible">
+												<button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
+													Save
+												</button>
+												<button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+													Cancel
+												</button>
+											</span>
+										</div>
+									</form>
 								</div>
+
 							</div>
 						</tab>
 						<tab heading="Rides">
 							<div class="row">
 								<div class="col-md-10">
 									<p>
-										Lorem ipsum dolor sit amet, consectetueradipiscing elied diam nonummy nibh euisod tincidunt ut laoreet dolore magna aliquam erat volutpatorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+										Lorem ipsum dolor sit amet, consectetueradipiscing elied diam nonummy nibh euisod tincidunt ut laoreet dolore magna aliquam eratk volutpatorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
 										Lorem ipsum dolor sit amet, consectetueradipiscing elied diam nonummy nibh euisod tincidunt ut laoreet dolore magna aliquam erat volutpatorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
 									</p>
 								</div>
@@ -74,6 +106,7 @@
 		<script src="/lib/angular/angular.js"></script>
 		<script src="/lib/angular/angular-route.js"></script>
 		<script src="/lib/angular-ui/ui-bootstrap-custom-tpls-0.10.0.js"></script>
+		<script src="/lib/xeditable.js"></script>
 		<script src="/js/app.js"></script>
 		<script src="/js/filters.js"></script>
 	</body>
