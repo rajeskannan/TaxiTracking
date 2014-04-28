@@ -70,6 +70,9 @@ taxiTracker.controller('ContactCtrl', function($scope) {
 });
 
 taxiTracker.controller('loginModalSercontroller', function($scope, $modalInstance, $modal){
+
+	$scope.EMAIL_REGXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/;
+
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
 	};
@@ -80,10 +83,16 @@ taxiTracker.controller('loginModalSercontroller', function($scope, $modalInstanc
 	}
 });
 
-taxiTracker.controller('registerMOdalController', function($scope, $registerModalInstance){
+taxiTracker.controller('registerModalController', function($scope, $registerModalInstance){
 	$scope.cancel = function () {
 		$registerModalInstance.dismiss('cancel');
 	};
+
+	$scope.checkEmail = function(data){
+		if(!emailRegex.test(data)){
+			return "error"
+		}
+	}
 });
 
 taxiTracker.controller('CarouselSliderCtrl', function($scope){

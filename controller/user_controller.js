@@ -70,15 +70,16 @@ exports.validateUserNameForUniqueness = function(req, res){
  * save new user information
  */
 exports.saveNewUser = function(req, res){
-	var first_name = 'Ram';
-	var last_name = 'Charan';
-	var username = 'ramcharan52';
-	var email = 'ramcharan@gmail.com';
-	var address = 'unknown';
-	var phone_no = '8989898989';
-	var password = passwordModule.hash('charan');
+	console.log(req.body);
+	var first_name = req.body.first_name;
+	var last_name = req.body.last_name;
+	var username = req.body.username;
+	var email = req.body.email;
+	var address = req.body.address;
+	var phone_no = req.body.phone_no;
+	var password = passwordModule.hash(req.body.password);
 	var date = new Date();
-	
+
 	connection.query('INSERT INTO user (first_name, last_name,username,email,password,created_on,updated_on,phone_number,address,company_id) VALUES (?,?,?,?,?,?,?,?,?,?);' , [first_name,last_name,username,email,password,date,date,phone_no,address,1], function(err, docs) {
 		if(err) {console.log('err>> '+err);res.send('401');}
 		findUserId(username, function(result_id) { 
