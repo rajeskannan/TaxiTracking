@@ -57,3 +57,11 @@ exports.userLogout = function(req, res){
 	req.session.destroy();
 	res.redirect('/');
 };
+
+/*
+ * render adminHome page.html
+ */
+exports.renderAdminHome = function(req, res){
+		res.render('adminHome.html');
+};
+

@@ -12,7 +12,7 @@ exports.findById=function findById(id, fn) {
   var user;
   connection.query(query ,[id], function(err, docs) {
 	if(docs.length>0){
-		user=new User(docs[0].user_id,docs[0].fisrt_name,docs[0].last_name,docs[0].username,docs[0].email,docs[0].password,docs[0].phone_number,docs[0].address,docs[0].company_id);
+		user=new User(docs[0].user_id,docs[0].first_name,docs[0].last_name,docs[0].username,docs[0].email,docs[0].password,docs[0].phone_number,docs[0].address,docs[0].company_id);
 		fn(null, user);
 	}
 	else{
@@ -218,4 +218,17 @@ exports.getUserDetails = function(req,res){
 		res.end();
 	});
 
+};
+
+
+exports.getUserRole = function(userId,calfn){
+	var role_id;
+	connection.query('select role_id from user_role where user_id=?;' ,[userId], function(err, docs) {
+		if(err){console.log('err>> '+err);}
+		role_id = docs[0].role_id;
+		connection.query('select name from role where role_id=?;' ,[role_id], function(err, docs) {
+			if(err){console.log('err>> '+err);}
+			calfn(docs[0].name);
+		});
+	});
 };

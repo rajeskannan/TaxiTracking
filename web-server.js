@@ -75,6 +75,9 @@ var User = require('./domain/User');
 var user_controller = require('./controller/user_controller');
 //password module
 var passwordModule = require('./controller/user_password_auth');
+//import adminRoleManagement
+var adminPermission = require('./config/adminRoleManagement');
+
 
 
 //default gateway
@@ -82,8 +85,8 @@ app.get('/',rendering.renderIndex);
 app.get('/home',rendering.renderHome);
 app.get('/contact',rendering.renderContact);
 app.get('/about',rendering.renderAbout);
-//app.get('/adminHome',user_controller.auth,rendering.renderAdminHome);
 app.get('/userHome',user_controller.auth,rendering.renderUserHome);
+app.get('/adminHome',user_controller.auth,adminPermission('ADMIN'),rendering.renderAdminHome);
 app.post('/enqury',user_controller.enqurySave);
 app.post('/saveUser',user_controller.saveNewUser);
 app.post('/updateUser',user_controller.updateUser);
@@ -93,7 +96,16 @@ app.get('/userDetails',user_controller.getUserDetails);
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
   function(req, res) {
-    res.redirect('/userHome');
+    user_controller.getUserRole(req.user.id,function(role){
+      req.session.role = role;
+      if(role=='ADMIN'){
+        res.redirect('/adminHome');
+      }
+      else{
+        res.redirect('/userHome');
+      }
+      
+    }); 
 });
 
 passport.use(new LocalStrategy(
