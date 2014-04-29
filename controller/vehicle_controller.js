@@ -2,7 +2,7 @@
 var connection = require('../config/db_util');
 
 /*
- * Create a new Vehicle
+ * Create new Vehicle
 */
 exports.saveNewVehicle = function(req, res){
 	var vehicle_type = req.body.vehicle_type;
@@ -32,7 +32,7 @@ exports.updateVehicle = function(req, res){
 };
 
 /*
- * view a vehicle information
+ * view vehicle information
 */
 function getVehicleInfo(vehicleId,calfn){
 	connection.query('select * from vehicle where vehicle_id=?',[vehicleId], function(err, docs) {
@@ -50,6 +50,22 @@ exports.getVehicleDetails = function(req,res){
 	getDriverInfo(vehicle_id,function(vehicleInfo){
 		res.write(JSON.stringify(vehicleInfo));
 		res.end();
+	});
+
+};
+
+
+/*
+ * delete vehicle information
+ * delete via cascading
+*/
+exports.deleteVehicleDetails = function(req,res){
+	var vehicle_id = req.body.vehicle_id;
+	connection.query('delete from vehicle where vehicle_id=?',[vehicle_id], function(err, docs) {
+		if(err){console.log('err>> '+err);}
+		else{
+			res.redirect('/vehiclePage');
+		}
 	});
 
 };

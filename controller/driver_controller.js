@@ -100,3 +100,23 @@ function deleteDriverFromUnavailTable(driverId,calfn){
 			}
 		});
  };
+
+
+
+
+/*
+ * delete Driver information
+ * delete via cascading
+
+exports.deleteDriverDetails = function(req,res){
+	var driver_id = req.body.driver_id;
+	connection.query('delete from driver where driver_id=?',[driver_id], function(err, docs) {
+		if(err){console.log('err>> '+err);}
+		else{
+			res.redirect('/driverPage');
+		}
+	});
+
+};
+
+*/
