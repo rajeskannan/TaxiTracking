@@ -14,11 +14,11 @@ function saveStartTripTime(driver_id,status,dispatcher_id,start_time,calfn){
  };
 
 exports.saveStartTripTimeDetails = function(req,res){
-	var driver_id = req.body.driver_id;
-	var status = req.body.statusMessage;
-	var dispatcher_id = req.body.dispatcher_id;
+	var driver_id = req.param("driver_id");
+	var status = req.param("statusMessage");
+	var dispatcher_id = req.param("dispatcher_id");
 	var start_time;
-	start_time = req.body.dispatcher_id;
+	start_time = req.param("start_time");
 	if(start_time){
 		console.log("start_time>> "+start_time);
 	}

@@ -78,7 +78,7 @@ var passwordModule = require('./controller/user_password_auth');
 //import adminRoleManagement
 var adminPermission = require('./config/adminRoleManagement');
 //import tripTimeTrack_controller
-var tripTimeTrack = require('./config/tripTimeTrack_controller');
+var tripTimeTrack = require('./controller/tripTimeTrack_controller');
 
 
 //default gateway
@@ -92,7 +92,11 @@ app.post('/enqury',user_controller.enqurySave);
 app.post('/saveUser',user_controller.saveNewUser);
 app.post('/updateUser',user_controller.updateUser);
 app.get('/userDetails',user_controller.getUserDetails);
-app.get('/startTripActivity',tripTimeTrack.saveStartTripTimeDetails);
+app.get('/nothing',tripTimeTrack.saveStartTripTimeDetails);
+app.get('/kkk',function(req, res){
+  res.write(JSON.stringify("kk"));
+  res.end();
+});
 
 
 //login code
