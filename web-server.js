@@ -92,7 +92,11 @@ app.post('/enqury',user_controller.enqurySave);
 app.post('/saveUser',user_controller.saveNewUser);
 app.post('/updateUser',user_controller.updateUser);
 app.get('/userDetails',user_controller.getUserDetails);
+//services for android app
 app.get('/saveTripTime',tripTimeTrack.saveStartTripTimeDetails);
+app.get('/userAuthValidation',user_controller.userAuthValid);
+
+
 
 
 //login code

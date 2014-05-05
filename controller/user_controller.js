@@ -232,3 +232,41 @@ exports.getUserRole = function(userId,calfn){
 		});
 	});
 };
+
+
+exports.userAuthValid= function(req,res){
+	res.set('Content-Type', 'application/json');
+
+	var userName = req.param("userName");
+	var password = req.param("password");
+	findByUsernameAndroid(userName, function(err, user) {
+        if (err) { 
+        	res.write(JSON.stringify("false"));
+        }
+        else if (!user) { 
+        	res.write(JSON.stringify("false"));
+        }
+        else if (!passwordModule.validate(user.password,password)) {
+          res.write(JSON.stringify("false"));
+     	}
+        else{
+        	res.write(JSON.stringify("true"));
+        } 
+        res.end();
+    });
+	
+};
+
+function findByUsernameAndroid(username, fn) {
+  var query="select * from user where username=?";
+  var user;
+  connection.query(query ,[username], function(err, docs) {
+	if(docs.length>0){
+		user=new User(docs[0].user_id,docs[0].first_name,docs[0].last_name,docs[0].username,docs[0].email,docs[0].password,docs[0].phone_number,docs[0].address,docs[0].company_id);
+		fn(null, user);
+	}
+	else{
+		fn(null, null);
+	}
+  });
+};
