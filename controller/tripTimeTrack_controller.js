@@ -24,7 +24,7 @@ exports.saveStartTripTimeDetails = function(req,res){
 	}
 	else {start_time = new Date();}
 	res.set('Content-Type', 'application/json');
-	getUserInfo(driver_id,status,dispatcher_id,start_time,function(result){
+	saveStartTripTime(driver_id,status,dispatcher_id,start_time,function(result){
 		res.write(JSON.stringify(result));
 		res.end();
 	});
