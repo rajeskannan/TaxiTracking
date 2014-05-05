@@ -94,6 +94,7 @@ app.post('/updateUser',user_controller.updateUser);
 app.get('/userDetails',user_controller.getUserDetails);
 //services for android app
 app.get('/saveTripTime',tripTimeTrack.saveStartTripTimeDetails);
+app.get('/tripAmountCalculator',tripTimeTrack.tripAmountCalculation);
 app.get('/userAuthValidation',user_controller.userAuthValid);
 
 
